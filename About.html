@@ -28,20 +28,39 @@
             </a>
             <!-- Dropdown menu -->
             <div id="dropdown-menu" class="dropdown-menu">
-                <a href="Settings.html" class="dropdown-item">Settings</a>
                 <a href="Login.html" class="dropdown-item">Login</a>
                 <a href="Register.html" class="dropdown-item">Register</a>
             </div>
         </div>
     </nav>
 
-    <!-- About Content -->
+    <!-- Combined About Us Content -->
     <div class="container">
-        <header>
-            <h1>About Us</h1>
-        </header>
-        <p>This page contains information about our events platform.</p>
+        <div class="about-us">
+            <header>
+                <h1>About Us</h1>
+            </header>
+            <section>
+                <p>
+                    At <strong>Gatherly</strong>, we are passionate about transforming your ideas into memorable events. As a full-service event management platform, we cater to a wide range of gatherings, from corporate conferences and workshops to weddings, parties, and community events.
+                </p>
+                <p>
+                    Our team is dedicated to providing personalized experiences, working closely with you to understand your vision and making sure every detail is handled flawlessly. With a commitment to creativity, organization, and client satisfaction, we manage everything from venue selection and vendor coordination to event logistics and on-the-day execution.
+                </p>
+            </section>
+        </div>
     </div>
+
+    <!-- Contact Section fixed at the bottom -->
+    <footer class="contact-us">
+        <h2>Contact Us</h2>
+        <p>Have questions or want to work with us? Feel free to reach out!</p>
+        <ul>
+            <li><i class="fas fa-phone"></i> Phone: +1 (123) 456-7890</li>
+            <li><i class="fas fa-envelope"></i> Email: contact@gatherly.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Address: 123 Event Lane, City, Country</li>
+        </ul>
+    </footer>
 
     <script>
         function toggleDropdown() {
@@ -61,6 +80,46 @@
     </script>
 
     <style>
+        /* Container styles similar to the Events page */
+        .container {
+            max-width: 500px; /* Set a max width for the container (slimmer) */
+            max-height: 2000px;
+            margin: 0 auto; /* Center horizontally */
+            padding: 20px; /* Add padding */
+            background-color: #f9f9f9; /* Example background color */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            text-align: center; /* Center text in the container */
+        }
+
+        .contact-footer i {
+            margin-right: 8px; /* Space between icon and text */
+        }
+        
+        .container h1, .container h2 {
+            font-size: 24px; /* Title font size */
+            margin-bottom: 10px; /* Space below titles */
+            text-align: center;
+        }
+
+        .about-us {
+            text-align: center; /* Ensure text is centered in the About Us section */
+        }
+
+        .about-us h1 {
+             margin: 0; /* Remove default margin */
+        }
+
+        .container p, .contact-footer ul {
+            font-size: 16px; /* General text size */
+            line-height: 1.6; /* Better readability */
+        }
+
+        /* Centered text */
+        header {
+            text-align: center; /* Center text */
+        }
+
         /* Dropdown menu styles */
         .dropdown-menu {
             display: none;
@@ -82,8 +141,23 @@
             text-decoration: none;
         }
 
-        .dropdown-item:hover {
-            background-color: #f1f1f1;
+        /* Contact section styles */
+        .contact-us {
+            text-align: center; /* Center the contact us section */
+            padding: 20px; /* Add padding */
+            background-color: #f9f9f9; /* Background color */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            position: fixed; /* Fixed position at the bottom */
+            left: 0;
+            right: 0; /* Center horizontally */
+            bottom: 0; /* Position at the bottom */
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .contact-us ul {
+            list-style-type: none; /* Remove default list style */
+            padding: 0; /* Remove padding */
         }
     </style>
 </body>

@@ -6,61 +6,136 @@
     <title>Home - Event List</title>
     <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts for Cursive Header -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="Home.html" class="nav-item home-link">
-                <i class="fas fa-home"></i> <!-- Home icon -->
-                Home
-            </a>
-        </div>
-        <div class="nav-right">
-            <a href="events.html" class="nav-item">Events</a>
-            <a href="about.html" class="nav-item">About</a>
-            <a href="Profile.html" class="nav-item profile-icon">
-                <i class="fas fa-user-circle"></i> <!-- User Profile icon -->
-            </a>
-            <a href="#" class="nav-item menu-icon" onclick="toggleDropdown()">
-                <i class="fas fa-bars"></i> <!-- Menu icon -->
-            </a>
-            <!-- Dropdown menu -->
-            <div id="dropdown-menu" class="dropdown-menu">
-                <a href="Login.html" class="dropdown-item">Login</a>
-                <a href="Register.html" class="dropdown-item">Register</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Home Content -->
-    <div class="container">
-        <header>
-            <h1>Welcome to the Home Page</h1>
-        </header>
-        <p>Navigate to different sections using the menu.</p>
-    </div>
-
-    <!-- JavaScript for Dropdown -->
-    <script>
-        function toggleDropdown() {
-            var dropdown = document.getElementById("dropdown-menu");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }
-
-        // Close dropdown when clicking outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.menu-icon') && !event.target.matches('.fas')) {
-                var dropdown = document.getElementById("dropdown-menu");
-                if (dropdown.style.display === "block") {
-                    dropdown.style.display = "none";
-                }
-            }
-        }
-    </script>
-
     <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000000;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Prevent scrollbars from appearing */
+        }
+
+        .profile-icon i,
+        .menu-icon i,
+        .nav-left a i {
+            font-size: 1.5em;   
+        }
+
+        .menu-icon {
+            cursor: pointer;
+        }
+
+        /* Slider Styles */
+        .slider {
+            position: relative;
+            flex: 1;
+            overflow: hidden; /* Hide overflowing content */
+            margin: 0; /* Remove margin for slider */
+            padding: 0; /* Remove padding for slider */
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out; /* Smooth transition between slides */
+            width: 100%; /* Adjust based on the number of slides */
+        }
+
+        .slide {
+            width: 100vw; /* Full width of the viewport */
+            height: 100vh; /* Full height of the viewport */
+            flex-shrink: 0; /* Prevent shrinking */
+            position: relative; /* Position relative for absolute positioning of the image */
+        }
+
+        .slide img {
+            position: absolute; /* Absolute positioning for full coverage */
+            top: 0; /* Align to top */
+            left: 0; /* Align to left */
+            width: 100%; /* Full width of the slide */
+            height: 100%; /* Full height of the slide */
+            object-fit: cover; /* Cover the entire area */
+        }
+
+        /* Background Text Styles */
+        .background-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center text */
+            color: white; /* Text color for visibility on background */
+            text-align: center; /* Center align text */
+            z-index: 1; /* Above the images */
+        }
+
+        .background-text h1 {
+            font-family: 'Dancing Script', cursive; /* Apply cursive font */
+            font-size: 4em;
+            text-shadow: 
+                2px 2px 0 rgba(255, 255, 255, 1), /* Right shadow for outline */
+                -2px -2px 0 rgba(255, 255, 255, 1), /* Left shadow for outline */
+                2px -2px 0 rgba(255, 255, 255, 1), /* Top right shadow for outline */
+                -2px 2px 0 rgba(255, 255, 255, 1), /* Bottom left shadow for outline */
+                0 0 4px rgba(0, 0, 0, 0.7); /* Black shadow for contrast */
+        }
+
+        .background-text p {
+            font-size: 1.5em; /* Increased font size */
+            margin-bottom: 40px;
+            color: black; /* Set text color to black */
+            text-shadow: 
+                1px 1px 0 rgba(255, 255, 255, 1), /* Right shadow for outline */
+                -1px -1px 0 rgba(255, 255, 255, 1), /* Left shadow for outline */
+                1px -1px 0 rgba(255, 255, 255, 1), /* Top right shadow for outline */
+                -1px 1px 0 rgba(255, 255, 255, 1), /* Bottom left shadow for outline */
+                0 0 2px rgba(0, 0, 0, 0.5); /* Black shadow for contrast */
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Animation effect */
+            margin: 5px; /* Space between buttons */
+            font-weight: bold; /* Make button text bold */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Primary button color */
+        }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Secondary button color */
+        }
+
+        .btn:hover {
+            background-color: #0056b3; /* Darker shade for primary button on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker shade for secondary button on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Button Container Styles */
+        .button-container {
+            display: flex; /* Use flexbox to arrange buttons in a row */
+            justify-content: center; /* Center buttons horizontally */
+            gap: 20px; /* Space between buttons */
+            margin-top: 20px; /* Space above the button container */
+        }
+
         /* Dropdown menu styles */
         .dropdown-menu {
             display: none;
@@ -85,6 +160,110 @@
         .dropdown-item:hover {
             background-color: #f1f1f1;
         }
+
+        /* Footer Styles */
+        footer {
+            background-color: #5c768d; /* Grayish blue */
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="Home.html" class="nav-item home-link">
+                <i class="fas fa-home"></i> <!-- Home icon -->
+                Home
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="events.html" class="nav-item">Events</a>
+            <a href="about.html" class="nav-item">About</a>
+            <a href="Profile.html" class="nav-item profile-icon">
+                <i class="fas fa-user-circle"></i> <!-- User Profile icon -->
+            </a>
+            <a href="#" class="nav-item menu-icon" onclick="toggleDropdown()">
+                <i class="fas fa-bars"></i> <!-- Menu icon -->
+            </a>
+            <!-- Dropdown menu -->
+            <div id="dropdown-menu" class="dropdown-menu">
+                <a href="Settings.html" class="dropdown-item">Settings</a>
+                <a href="Login.html" class="dropdown-item">Login</a>
+                <a href="Register.html" class="dropdown-item">Register</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Slider Section -->
+    <div class="slider">
+        <div class="slides" id="slides">
+            <div class="slide">
+                <img src="images/image 1.jpg" alt="Event Image 1"> <!-- First Image -->
+            </div>
+            <div class="slide">
+                <img src="images/image 2.jpg" alt="Event Image 2"> <!-- Second Image -->
+            </div>
+            <div class="slide">
+                <img src="images/image 3.jpg" alt="Event Image 3"> <!-- Third Image -->
+            </div>
+        </div>
+        <div class="background-text">
+            <header>
+                <h1>A better way to manage your events</h1>
+            </header>
+            <p>Transforming Ideas into Memorable Experiences.</p>
+            <div class="button-container">
+                <button class="btn btn-primary">Book Event</button>
+                <a href="Events.html" class="btn btn-secondary">See Events</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Event Management. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Slider -->
+    <script>
+        let currentIndex = 0; // Current index of the slide
+        const slides = document.getElementById('slides');
+        const totalSlides = slides.children.length;
+
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides; // Cycle through slides
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const offset = -currentIndex * 100; // Calculate the offset
+            slides.style.transform = `translateX(${offset}vw)`; // Move the slides
+        }
+
+        // Automatically change slides every 5 seconds
+        setInterval(showNextSlide, 5000);
+
+        // Dropdown menu functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdown-menu");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-icon') && !event.target.matches('.fas')) {
+                const dropdown = document.getElementById("dropdown-menu");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>

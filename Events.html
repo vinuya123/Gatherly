@@ -56,7 +56,7 @@
                 <img src="images/worlds.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>Worlds 2024 - Swiss Stage</h3>
-                    <p class="event-date">09/15/2024 | 88,069 Attending</p>
+                    <p class="event-date">09/15/2024 | 88069 Attending</p>
                     <div class="status-group">
                         <span class="status finished">Finished</span>
                         <span class="status published">Published</span>
@@ -68,7 +68,7 @@
                 <img src="images/worlds.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>Worlds 2024 - Knockout Stage</h3>
-                    <p class="event-date">10/21/2024 | 182,509 Attending</p>
+                    <p class="event-date">10/21/2024 | 182509 Attending</p>
                     <div class="status-group">
                         <span class="status pending">Pending</span>
                         <span class="status published">Published</span>
@@ -80,7 +80,7 @@
                 <img src="images/worlds.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>Worlds 2024 - Finals Stage</h3>
-                    <p class="event-date">11/05/2024 |310,553 Attending</p>
+                    <p class="event-date">11/05/2024 |310553 Attending</p>
                     <div class="status-group">
                         <span class="status pending">Pending</span>
                         <span class="status published">Published</span>
@@ -92,7 +92,7 @@
                 <img src="images/bini.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>BINIverse</h3>
-                    <p class="event-date">11/09/2024 | 11,405 Attending</p>
+                    <p class="event-date">11/09/2024 | 11405 Attending</p>
                     <div class="status-group">
                         <span class="status pending">Pending</span>
                         <span class="status unpublished">Unpublished</span>
@@ -104,7 +104,7 @@
                 <img src="images/lany.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>LANY Asia 2024</h3>
-                    <p class="event-date">11/24/2024 | 158,985 Attending</p>
+                    <p class="event-date">11/24/2024 | 158985 Attending</p>
                     <div class="status-group">
                         <span class="status pending">Pending</span>
                         <span class="status published">Published</span>
@@ -231,7 +231,11 @@
 // Global variable to track attendees for each event
 let attendees = {
     'CA$H-G Concert': 405,
-    'Worlds 2024 - Swiss Stage': 88069
+    'Worlds 2024 - Swiss Stage': 88069,
+    'Worlds 2024 - Knockout Stage': 182509,
+    'Worlds 2024 - Finals Stage': 310553,
+    'BINIverse': 11405,
+    'LANY Asia 2024': 158985
 };
 
 // Ticket Purchase Popup
@@ -266,6 +270,9 @@ function purchaseTickets() {
                 eventDateElement.textContent = updatedText;
             }
         });
+
+        // Save the updated attendees to localStorage
+        localStorage.setItem('attendees', JSON.stringify(attendees));
 
         alert(`You have successfully purchased ${quantity} tickets for ${eventName}!`);
         closeTicketPopup();
@@ -321,6 +328,7 @@ function addEvent() {
 // Load events from localStorage when the page is loaded
 window.onload = function() {
     loadEvents();
+    loadAttendees();
 }
 
 // Function to load events from localStorage
@@ -424,7 +432,22 @@ function deleteEvent() {
         }
     }
 }
-
+// Function to load attendees from localStorage
+function loadAttendees() {
+    const savedAttendees = JSON.parse(localStorage.getItem('attendees')) || {};
+    Object.keys(savedAttendees).forEach(eventName => {
+        attendees[eventName] = savedAttendees[eventName];
+        // Update the event cards with the saved attendees count
+        const eventCards = document.querySelectorAll('.event-card');
+        eventCards.forEach(card => {
+            if (card.querySelector('h3').textContent === eventName) {
+                let eventDateElement = card.querySelector('.event-date');
+                let updatedText = eventDateElement.textContent.replace(/\d+ Attending/, `${attendees[eventName]} Attending`);
+                eventDateElement.textContent = updatedText;
+            }
+        });
+    });
+}
     </script>
 
     <style>

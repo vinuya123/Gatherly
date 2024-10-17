@@ -34,17 +34,20 @@
     <div class="container">
         <header>
             <h1>Events</h1>
-            <button class="new-event-btn" onclick="showPopup()">+ New Event</button>
-        </header>
+            <div class="event-controls">
+                <button class="new-event-btn" onclick="showPopup()">+ New Event</button>
+                <button class="delete-event-btn" onclick="deleteEvent()">Delete Event</button>
+            </div>
+        </header>        
         <div class="event-list" id="eventList">
             <div class="event-card">
                 <img src="images/cashg.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>CA$H-G Concert</h3>
-                    <p class="event-date">06/09/20 | 405 Attending</p>
+                    <p class="event-date">06/09/2024 | 405 Attending</p>
                     <div class="status-group">
-                        <span class="status pending">Pending</span>
-                        <span class="status unpublished">Unpublished</span>
+                        <span class="status finished">Finished</span>
+                        <span class="status published">Published</span>
                     </div>
                     <button class="buy-tickets-btn" onclick="showTicketForm('CA$H-G Concert')">Buy Tickets</button>
                 </div>
@@ -53,20 +56,68 @@
                 <img src="images/worlds.jpg" alt="Event Image" class="event-image">
                 <div class="event-details">
                     <h3>Worlds 2024 - Swiss Stage</h3>
-                    <p class="event-date">09/15/20 | 88,069 Attending</p>
+                    <p class="event-date">09/15/2024 | 88,069 Attending</p>
+                    <div class="status-group">
+                        <span class="status finished">Finished</span>
+                        <span class="status published">Published</span>
+                    </div>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('Worlds 2024 - Swiss Stage')">Buy Tickets</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="images/worlds.jpg" alt="Event Image" class="event-image">
+                <div class="event-details">
+                    <h3>Worlds 2024 - Knockout Stage</h3>
+                    <p class="event-date">10/21/2024 | 182,509 Attending</p>
                     <div class="status-group">
                         <span class="status pending">Pending</span>
                         <span class="status published">Published</span>
                     </div>
-                    <button class="buy-tickets-btn" onclick="showTicketForm('Worlds 2024 - Swiss Stage')">Buy Tickets</button>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('Worlds 2024 - Knockout Stage')">Buy Tickets</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="images/worlds.jpg" alt="Event Image" class="event-image">
+                <div class="event-details">
+                    <h3>Worlds 2024 - Finals Stage</h3>
+                    <p class="event-date">11/05/2024 |310,553 Attending</p>
+                    <div class="status-group">
+                        <span class="status pending">Pending</span>
+                        <span class="status published">Published</span>
+                    </div>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('Worlds 2024 - Finals Stage')">Buy Tickets</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="images/bini.jpg" alt="Event Image" class="event-image">
+                <div class="event-details">
+                    <h3>BINIverse</h3>
+                    <p class="event-date">11/09/2024 | 11,405 Attending</p>
+                    <div class="status-group">
+                        <span class="status pending">Pending</span>
+                        <span class="status unpublished">Unpublished</span>
+                    </div>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('BINIverse')">Buy Tickets</button>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="images/lany.jpg" alt="Event Image" class="event-image">
+                <div class="event-details">
+                    <h3>LANY Asia 2024</h3>
+                    <p class="event-date">11/24/2024 | 158,985 Attending</p>
+                    <div class="status-group">
+                        <span class="status pending">Pending</span>
+                        <span class="status published">Published</span>
+                    </div>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('LANY Asia 2024')">Buy Tickets</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Ticket Purchase Popup -->
-    <div id="ticketPopup" class="popup-overlay" style="display:none;">
-        <div class="popup-content">
+    <div id="ticketPopup" class="popup-overlay ticket-popup" style="display:none;">
+        <div class="popup-content ticket-popup-content">
             <span class="close-btn" onclick="closeTicketPopup()">&times;</span>
             <h2>Buy Tickets</h2>
             <p id="selectedEvent">Event Name</p>
@@ -176,6 +227,204 @@
                 alert("Please fill in all fields and upload an image.");
             }
         }
+
+// Global variable to track attendees for each event
+let attendees = {
+    'CA$H-G Concert': 405,
+    'Worlds 2024 - Swiss Stage': 88069
+};
+
+// Ticket Purchase Popup
+function showTicketForm(eventName) {
+    document.getElementById("selectedEvent").textContent = eventName;
+    document.getElementById("ticketPopup").style.display = "block";
+}
+
+function closeTicketPopup() {
+    document.getElementById("ticketPopup").style.display = "none";
+}
+
+function purchaseTickets() {
+    const quantity = parseInt(document.getElementById("ticketQuantity").value);
+    const eventName = document.getElementById("selectedEvent").textContent;
+
+    if (quantity > 0) {
+        // Ensure the event exists in the attendees object
+        if (!attendees[eventName]) {
+            attendees[eventName] = 0;  // Initialize with 0 attendees if not present
+        }
+
+        // Add purchased tickets to the event's attendees count
+        attendees[eventName] += quantity;
+
+        // Find the event card and update the attending count in the event's DOM
+        const eventCards = document.querySelectorAll('.event-card');
+        eventCards.forEach(card => {
+            if (card.querySelector('h3').textContent === eventName) {
+                let eventDateElement = card.querySelector('.event-date');
+                let updatedText = eventDateElement.textContent.replace(/\d+ Attending/, `${attendees[eventName]} Attending`);
+                eventDateElement.textContent = updatedText;
+            }
+        });
+
+        alert(`You have successfully purchased ${quantity} tickets for ${eventName}!`);
+        closeTicketPopup();
+    } else {
+        alert("Please enter a valid number of tickets.");
+    }
+}
+
+// Add Event Popup
+function addEvent() {
+    const name = document.getElementById("eventName").value;
+    const description = document.getElementById("eventDescription").value;
+    const timeAndPlace = document.getElementById("eventTime").value;
+    const imageInput = document.getElementById("imageUpload");
+
+    // Validate fields
+    if (name && description && timeAndPlace && imageInput.files.length > 0) {
+        const imageFile = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imageUrl = e.target.result;
+
+            const eventList = document.getElementById("eventList");
+            const newEventCard = document.createElement("div");
+            newEventCard.classList.add("event-card");
+            newEventCard.innerHTML = `
+                <img src="${imageUrl}" alt="Event Image" class="event-image">
+                <div class="event-details">
+                    <h3>${name}</h3>
+                    <p class="event-date">${timeAndPlace} | 0 Attending</p>
+                    <div class="status-group">
+                        <span class="status pending">Pending</span>
+                        <span class="status unpublished">Unpublished</span>
+                    </div>
+                    <button class="buy-tickets-btn" onclick="showTicketForm('${name}')">Buy Tickets</button>
+                </div>
+            `;
+            eventList.appendChild(newEventCard);
+
+            // Initialize attendee count for the new event
+            attendees[name] = 0;
+
+            closePopup();
+        };
+
+        reader.readAsDataURL(imageFile);
+    } else {
+        alert("Please fill in all fields and upload an image.");
+    }
+}
+
+// Load events from localStorage when the page is loaded
+window.onload = function() {
+    loadEvents();
+}
+
+// Function to load events from localStorage
+function loadEvents() {
+    const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+
+    savedEvents.forEach(event => {
+        addEventToDOM(event.name, event.imageUrl, event.timeAndPlace, event.attendees, event.status);
+    });
+}
+
+// Function to save events to localStorage
+function saveEventToLocalStorage(event) {
+    const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+    savedEvents.push(event);
+    localStorage.setItem('events', JSON.stringify(savedEvents));
+}
+
+// Function to add event to the DOM
+function addEventToDOM(name, imageUrl, timeAndPlace, attendees = 0, status = 'unpublished') {
+    const eventList = document.getElementById("eventList");
+    const newEventCard = document.createElement("div");
+    newEventCard.classList.add("event-card");
+    newEventCard.innerHTML = `
+        <img src="${imageUrl}" alt="Event Image" class="event-image">
+        <div class="event-details">
+            <h3>${name}</h3>
+            <p class="event-date">${timeAndPlace} | ${attendees} Attending</p>
+            <div class="status-group">
+                <span class="status pending">Pending</span>
+                <span class="status unpublished">Unpublished</span>
+            </div>
+            <button class="buy-tickets-btn" onclick="showTicketForm('${name}')">Buy Tickets</button>
+        </div>
+    `;
+    eventList.appendChild(newEventCard);
+
+    attendees[name] = attendees; // Initialize attendee count for the event
+}
+
+// Add Event Popup
+function addEvent() {
+    const name = document.getElementById("eventName").value;
+    const description = document.getElementById("eventDescription").value;
+    const timeAndPlace = document.getElementById("eventTime").value;
+    const imageInput = document.getElementById("imageUpload");
+
+    // Validate fields
+    if (name && description && timeAndPlace && imageInput.files.length > 0) {
+        const imageFile = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imageUrl = e.target.result;
+
+            // Add event to DOM
+            addEventToDOM(name, imageUrl, timeAndPlace);
+
+            // Save event to localStorage
+            const event = {
+                name: name,
+                imageUrl: imageUrl,
+                timeAndPlace: timeAndPlace,
+                attendees: 0,
+                status: 'unpublished'
+            };
+            saveEventToLocalStorage(event);
+
+            closePopup();
+        };
+
+        reader.readAsDataURL(imageFile);
+    } else {
+        alert("Please fill in all fields and upload an image.");
+    }
+}
+
+function deleteEvent() {
+    const eventName = prompt("Enter the name of the event you want to delete:");
+    if (eventName) {
+        const eventCards = document.querySelectorAll('.event-card');
+        let eventFound = false;
+
+        eventCards.forEach(card => {
+            if (card.querySelector('h3').textContent === eventName) {
+                card.remove();  // Remove the event card from the DOM
+                delete attendees[eventName];  // Remove the event from the attendees object
+                eventFound = true;
+
+                // Optionally, remove the event from localStorage (if it's stored there)
+                let savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+                savedEvents = savedEvents.filter(event => event.name !== eventName);
+                localStorage.setItem('events', JSON.stringify(savedEvents));
+            }
+        });
+
+        if (eventFound) {
+            alert(`${eventName} has been deleted.`);
+        } else {
+            alert(`Event ${eventName} not found.`);
+        }
+    }
+}
+
     </script>
 
     <style>
@@ -269,6 +518,26 @@
         .dropdown-item:hover {
             background-color: #f1f1f1;
         } 
+
+        .buy-tickets-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #7A98A6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .buy-tickets-btn:hover {
+            background-color: #5F7B8B;
+        }
+
+        .ticket-popup-content {
+            height: 185px; /* Set your desired height for the Buy Tickets popup */
+        }
+
     </style>
 </body>
 </html>

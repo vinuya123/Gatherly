@@ -111,15 +111,11 @@
         }
 
         .btn-primary {
-            background-color: #007bff; /* Primary button color */
-        }
-
-        .btn-secondary {
-            background-color: #6c757d; /* Secondary button color */
+            background-color: #607d8b; /* Primary button color */
         }
 
         .btn:hover {
-            background-color: #0056b3; /* Darker shade for primary button on hover */
+            background-color: #607d8b; /* Darker shade for primary button on hover */
             transform: translateY(-2px); /* Slight lift effect */
         }
 
@@ -171,6 +167,14 @@
             bottom: 0;
             width: 100%;
         }
+
+        .navbar {
+            position: absolute; /* Positioning to overlay the background */
+            top: 0; /* Align to the top */
+            left: 0; /* Align to the left */
+            width: 100%; /* Full width of the viewport */
+            z-index: 2; /* Ensure it’s above the background images */
+        }
     </style>
 </head>
 <body>
@@ -218,8 +222,7 @@
             </header>
             <p>Transforming Ideas into Memorable Experiences.</p>
             <div class="button-container">
-                <button class="btn btn-primary">Book Event</button>
-                <a href="Events.html" class="btn btn-secondary">See Events</a>
+                <a href="Events.html" class="btn btn-primary">See Events</a>
             </div>
         </div>
     </div>

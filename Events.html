@@ -16,9 +16,9 @@
             </a>
         </div>
         <div class="nav-right">
-            <a href="events.html" class="nav-item">Events</a>
-            <a href="about.html" class="nav-item">About</a>
-            <a href="Profile.html" class="nav-item profile-icon">
+            <a href="Events.html" class="nav-item">Events</a>
+            <a href="About.html" class="nav-item">About</a>
+            <a href="Profile.php" class="nav-item profile-icon">
                 <i class="fas fa-user-circle"></i>
             </a>
             <a href="#" class="nav-item menu-icon" onclick="toggleDropdown()">
@@ -449,6 +449,10 @@ function loadAttendees() {
     });
 }
     </script>
+      <!-- Footer -->
+      <footer class="footer">
+        <p>© 2024 Event Management. All rights reserved.</p>
+    </footer>
 
     <style>
         .popup-overlay {
@@ -559,6 +563,21 @@ function loadAttendees() {
 
         .ticket-popup-content {
             height: 185px; /* Set your desired height for the Buy Tickets popup */
+        }
+                /* Footer styles */
+                .footer {
+            text-align: left; /* Align text to the left */
+            position: fixed; /* Fixed position at the bottom */
+            left: 0;
+            bottom: 0; /* Position at the bottom */
+            width: 100%; /* Full width */
+            background-color: transparent; /* Remove background color */
+            color: #000; /* Set text color to black */
+        }
+
+        .footer p {
+            margin: 0; /* Remove default margin */
+            padding: 10px 20px; /* Add some padding */
         }
 
     </style>

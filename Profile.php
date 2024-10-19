@@ -140,22 +140,32 @@ if (!isset($_SESSION['name'], $_SESSION['email'], $_SESSION['bio'], $_SESSION['p
 
     <!-- Profile Section -->
     <div class="profile-section">
-        <div class="profile-picture">
-            <img src="<?php echo htmlspecialchars($_SESSION['profile_pic']); ?>" alt="Profile Picture">
-        </div>
-        <div class="profile-name"><?php echo htmlspecialchars($_SESSION['name']); ?></div>
-        <div class="profile-description">
-            <?php echo htmlspecialchars($_SESSION['bio']); ?>
-        </div>
-        <a href="Edit Profile.php" class="edit-button">Edit Profile</a>
-
-        <!-- Social Links -->
-        <div class="social-links">
-            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-        </div>
+    <div class="profile-picture">
+        <img src="<?php echo htmlspecialchars($_SESSION['profile_pic']); ?>" alt="Profile Picture">
     </div>
+    <div class="profile-name"><?php echo htmlspecialchars($_SESSION['name']); ?></div>
+    
+    <!-- Profile Bio -->
+    <div class="profile-description">
+        <?php echo htmlspecialchars($_SESSION['bio']); ?>
+    </div>
+    
+    <!-- Email Display -->
+    <div class="profile-email">
+        <?php echo htmlspecialchars($_SESSION['email']); ?>
+    </div>
+    
+    <!-- Edit Profile Button -->
+    <a href="Edit Profile.php" class="edit-button">Edit Profile</a>
+
+    <!-- Social Links -->
+    <div class="social-links">
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+    </div>
+</div>
+
 
     <!-- JavaScript for Dropdown -->
     <script>

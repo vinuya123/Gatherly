@@ -564,15 +564,19 @@ function loadAttendees() {
         .ticket-popup-content {
             height: 185px; /* Set your desired height for the Buy Tickets popup */
         }
-                /* Footer styles */
-                .footer {
-            text-align: left; /* Align text to the left */
-            position: fixed; /* Fixed position at the bottom */
-            left: 0;
-            bottom: 0; /* Position at the bottom */
-            width: 100%; /* Full width */
-            background-color: transparent; /* Remove background color */
-            color: #000; /* Set text color to black */
+            
+        .container {
+            flex: 1; /* This pushes the footer down */
+        }
+
+        .footer {
+            background-color: white;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
         }
 
         .footer p {
